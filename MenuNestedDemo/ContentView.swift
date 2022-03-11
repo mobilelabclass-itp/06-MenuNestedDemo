@@ -17,13 +17,16 @@ struct ContentView: View {
                        isActive: $showPage1) {
           EmptyView()
         }
+        Button("Goto Page1") {
+          showPage1.toggle()
+        }
+        // button can be graphic
+        Button(action: { report("Trash") }) {
+          Image(systemName: "trash")
+//          Text("Trash")
+        }
         Menu("Actions Menu") {
           Button("Duplicate", action: { report("Duplicate")})
-          // button can be graphic
-          Button(action: { report("Trash") }) {
-            Image(systemName: "trash")
-            Text("Trash")
-          }
           // action: may be omitted
           Button("Rename") { report("Rename") }
           Button("Delete…") { report("Delete") }
@@ -31,9 +34,6 @@ struct ContentView: View {
             Button("Copy") { report("Copy") }
             Button("Copy Formatted") { report("Copy Formatted") }
             Button("Copy Library Path") { report("Copy Library Path") }
-          }
-          Button("Goto Page1") {
-            showPage1.toggle()
           }
         }
         Text(msg)
