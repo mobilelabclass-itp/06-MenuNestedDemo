@@ -9,24 +9,32 @@ import SwiftUI
 
 struct ContentView: View {
   @State var msg = ""
-  @State var page1Active = false
+  @State var showPage1 = false
   var body: some View {
     NavigationView {
       VStack {
         NavigationLink(destination: Page1(),
-                       isActive: $page1Active) {
+                       isActive: $showPage1) {
           EmptyView()
         }
         Menu("Actions Menu") {
           Button("Duplicate", action: { report("Duplicate")})
-          Button("Rename", action: { report("Rename")})
-          Button("Delete…", action: { report("Delete") } )
-          Menu("Copy") {
-            Button("Copy", action: { report("Copy") })
-            Button("Copy Formatted", action: { report("Copy Formatted") })
-            Button("Copy Library Path", action: { report("Copy Library Path") })
+          // button can be graphic
+          Button(action: { report("Trash") }) {
+            Image(systemName: "trash")
+            Text("Trash")
           }
-          Button("Page1", action: { page1Active.toggle() })
+          // action: may be omitted
+          Button("Rename") { report("Rename") }
+          Button("Delete…") { report("Delete") }
+          Menu("Copy") {
+            Button("Copy") { report("Copy") }
+            Button("Copy Formatted") { report("Copy Formatted") }
+            Button("Copy Library Path") { report("Copy Library Path") }
+          }
+          Button("Goto Page1") {
+            showPage1.toggle()
+          }
         }
         Text(msg)
       }
@@ -34,8 +42,8 @@ struct ContentView: View {
   }
   
   func report(_ m:String) {
-    print("report" , msg)
-    msg = m
+    print("report" , m)
+    msg = "report " + m
   }
 }
 
